@@ -16,7 +16,7 @@ use std::time::Duration;
 mod game;
 
 fn main() -> Result<()> {
-    let mut game = game::Universe::new(5, 5);
+    let mut game = game::Universe::new(40, 40);
     let mut stdout = stdout();
 
     enable_raw_mode()?;
@@ -38,7 +38,7 @@ fn main() -> Result<()> {
         } else {
             queue!(stdout, Clear(ClearType::All))?;
             let mut i = 0;
-            while let Some(line) = game.row_as_string(i) {
+            while let Ok(line) = game.get_row_as_string(i) {
                 queue!(stdout, MoveTo(0, i as u16), Print(line))?;
                 i += 1;
             }
